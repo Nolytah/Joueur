@@ -1,84 +1,71 @@
-let codeSecret = ['rond', 'carre', 'triangle'];
-let tentative = [];
-
-function selectionner(symbole) {
-  tentative.push(symbole);
-  if (tentative.length === 3) {
-    verifierCode();
-  }
+body {
+  background-color: black;
+  color: #ff1c65;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  padding: 50px;
 }
 
-function verifierCode() {
-  let resultat = document.getElementById("resultat");
-
-  // On remet à zéro les classes au cas où
-  resultat.className = "";
-
-  if (JSON.stringify(tentative) === JSON.stringify(codeSecret)) {
-    resultat.textContent = "Accès autorisé. Découvre ton numéro de joueur";
-    resultat.classList.add("resultat-success");
-  } else {
-    resultat.textContent = "Échec. Recommence.";
-    resultat.classList.add("resultat-error");
-  }
-  tentative = [];
-}
-function verifierCode() {
-  let resultat = document.getElementById("resultat");
-  resultat.className = "";
-
-  if (JSON.stringify(tentative) === JSON.stringify(codeSecret)) {
-    resultat.textContent = "Accès autorisé. Découvre ton numéro de joueur";
-    resultat.classList.add("resultat-success");
-
-    // Affiche le formulaire
-    document.getElementById("formulaire").style.display = "block";
-  } else {
-    resultat.textContent = "Échec. Recommence.";
-    resultat.classList.add("resultat-error");
-    document.getElementById("formulaire").style.display = "none";
-  }
-  tentative = [];
+h1 {
+  font-size: 50px;
+  margin-bottom: 20px;
 }
 
-function genererNumero() {
-  let prenom = document.getElementById("prenom").value.trim().toLowerCase();
-  let affichage = document.getElementById("numero-joueur");
+.instruction {
+  color: white;
+  font-size: 24px;
+  margin-bottom: 30px;
+}
 
-  let numeroFinal = "";
-  let joueurConnu = true;
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
 
-  if (["deby", "déborah", "deborah"].includes(prenom)) {
-    numeroFinal = "456";
-  } else if (["lisa", "lisouille"].includes(prenom)) {
-    numeroFinal = "067";
-  } else if (["manu", "emmanuel"].includes(prenom)) {
-    numeroFinal = Math.floor(Math.random() * (455 - 68 + 1)) + 68;
-    numeroFinal = numeroFinal.toString().padStart(3, '0');
-  } else if (["ana", "nana", "anaelle", "nanouille"].includes(prenom)) {
-    affichage.style.color = "red";
-    affichage.textContent = "Confidentiel";
-    return;
-  } else {
-    joueurConnu = false;
-  }
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
 
-  if (!joueurConnu) {
-    affichage.style.color = "red";
-    affichage.textContent = "Joueur inconnu";
-    return;
-  }
+button svg {
+  width: 60px;
+  height: 60px;
+}
 
-  // Lancer effet machine à sous avant d'afficher
-  affichage.style.color = "white";
-  let compteur = 0;
-  let interval = setInterval(() => {
-    let randomNum = Math.floor(Math.random() * 999).toString().padStart(3, '0');
-    affichage.textContent = "Joueur n° " + randomNum;
-    compteur++;
-    if (compteur > 20) {
-      clearInterval(interval);
-      affichage.textContent = "Joueur n° " + numeroFinal;
-    }
-  }, 80);
+#resultat {
+  font-size: 28px;
+  margin-top: 20px;
+}
+
+.resultat-success {
+  color: #00ff7f; /* vert clair */
+}
+
+.resultat-error {
+  color: red;
+}
+
+#formulaire input {
+  padding: 10px;
+  font-size: 18px;
+  border: 2px solid #ff1c65;
+  background: black;
+  color: #ff1c65;
+  margin-right: 10px;
+}
+
+#formulaire button {
+  padding: 10px 20px;
+  font-size: 18px;
+  background: #ff1c65;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#numero-joueur {
+  color: #ff1c65;
 }
